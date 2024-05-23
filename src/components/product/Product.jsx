@@ -4,6 +4,7 @@ import useStore from '../../context/store'
 // Images
 import { FaRegHeart, FaStar, FaHeart } from 'react-icons/fa6'
 import { GrCart } from 'react-icons/gr'
+import { toast } from 'react-toastify'
 
 const Product = ({ data, loading }) => {
     let handleHeart = useStore(state => state.toggleHeart)
@@ -30,7 +31,10 @@ const Product = ({ data, loading }) => {
                                 <FaRegHeart />
                         }
                     </button>
-                    <button onClick={() => handleAddToCart(el)}><GrCart /></button>
+                    <button onClick={() => {
+                        handleAddToCart(el)
+                        toast.success("Product has been added to cart")
+                    }}><GrCart /></button>
                 </article>
             </div>
         </div>

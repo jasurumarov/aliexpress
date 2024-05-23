@@ -8,6 +8,10 @@ import { FaMinus, FaPlus } from 'react-icons/fa6'
 
 const CartContent = () => {
     let cart = useStore(state => state.cartList)
+    let removeFromCart = useStore(state => state.removeItemFromCart)
+    let incQuantity = useStore(state => state.incQuantity)
+    let decQuantity = useStore(state => state.decQuantity)
+    let clearCart = useStore(state => state.clearCart)
 
     let cartItem = cart?.map(el => (
         <div key={el.id} className="cart__list-item">
@@ -19,21 +23,23 @@ const CartContent = () => {
                 <p title={el.description}>{el.description}</p>
             </div>
             <div className="cart__list-item__quantity">
-                <button><FaMinus /></button>
+                <button disabled={el.quantity <= 1} onClick={() => decQuantity(el)}><FaMinus /></button>
                 <span>{el.quantity}</span>
-                <button><FaPlus /></button>
+                <button onClick={() => incQuantity(el)}><FaPlus /></button>
             </div>
             <div className="cart__list-item__prices">
                 <del>{(el.price * 1.4).brm()}$</del>
                 <h3>{(el.price).brm()}$</h3>
             </div>
-            <button className="cart__list-item__delete"><BsTrash3 /></button>
+            <button onClick={() => removeFromCart(el)} className="cart__list-item__delete"><BsTrash3 /></button>
         </div>
     ))
 
     let checkoutProducts = cart?.map(el => (
         <article key={el.id}><img src={el.images[0]} alt="" /></article>
     ))
+
+    let totalPrice = cart?.reduce((sum, item) => sum + (item.price * item.quantity), 0)
 
     return (
         <div className='cart-section'>
@@ -42,7 +48,7 @@ const CartContent = () => {
                     <section className='cart-section__content'>
                         <div className="cart__title">
                             <h1>Cart</h1>
-                            <button><BsTrash3 /></button>
+                            <button onClick={() => clearCart()}><BsTrash3 /></button>
                         </div>
                         <div className="cart__list">
                             {cartItem}
@@ -57,15 +63,15 @@ const CartContent = () => {
                             <ul>
                                 <li>
                                     <p>{cart.length} items</p>
-                                    <p>000$</p>
+                                    <p>{(totalPrice).brm()}$</p>
                                 </li>
                                 <li>
                                     <p>Delivery</p>
-                                    <p>000$</p>
+                                    <p>16$</p>
                                 </li>
                                 <button>
                                     Checkout
-                                    <span>3432$ <MdOutlineKeyboardArrowRight /></span>
+                                    <span>{(totalPrice + 16).brm()}$ <MdOutlineKeyboardArrowRight /></span>
                                 </button>
                             </ul>
                         </div>

@@ -3,35 +3,40 @@ import { GrCatalog } from "react-icons/gr";
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import { ImEnter } from "react-icons/im";
 import { BsCalendarHeartFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useStore from "../../context/store";
 
 const Header = () => {
+  let wishlist = useStore(state => state.wish)
+  let cart = useStore(state => state.cartList)
     const navigate = useNavigate()
   return (
     <div className="navbar__wrapper">
       <div className="container">
         <div className="navbar__section">
           <div className="navbar__section-logo">
-            <h2>AliExpress</h2>
+            <h2><Link to={"/"}>AliExpress</Link></h2>
           </div>
           <div className="navbar__section-links">
-            <button>
+            <button className="catalog-btn">
               <GrCatalog />
               <p>Catalog </p>
             </button>
             <div className="search__input">
-              <input type="text" placeholder="xiomi mi 11 ultra" />
-              <button>Search...</button>
+              <input  type="text" placeholder="xiomi mi 11 ultra" />
+              <button className="search-btn">Find</button>
             </div>
-            <button onClick={() => navigate("/wishlist")} >
+            <button className="catalog-btn" onClick={() => navigate("/wishlist")} >
                 <BsCalendarHeartFill />
                 <p>Wishlist</p>
+                <span>{wishlist.length}</span>
             </button>
-            <button onClick={() => navigate("/carts")}>
+            <button className="catalog-btn" onClick={() => navigate("/carts")}>
               <HiMiniShoppingCart />
               <p>Cart</p>
+              <span>{cart.length}</span>
             </button>
-            <button>
+            <button className="catalog-btn">
               <ImEnter />
               <p>Login</p>
             </button>
