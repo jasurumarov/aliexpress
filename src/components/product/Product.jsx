@@ -39,11 +39,37 @@ const Product = ({ data, loading }) => {
             </div>
         </div>
     ))
+
+    let loadingSize = Array(12).fill("")
+
+    let loadingItem = loadingSize.map((el, i) => (
+        <div key={i} className="products__card">
+            <div className="product-card__img">
+            </div>
+            <p></p>
+            <h5></h5>
+            <div className='product-card__prices'>
+                <h3></h3>
+                <article>
+                    <button>
+                    </button>
+                    <button></button>
+                </article>
+            </div>
+        </div>
+    ))
     return (
         <section className='products-section'>
             <div className="container">
                 <div className="products-section__content">
-                    {products}
+                    {
+                        loading ?
+                        <div className="loading">
+                            {loadingItem}
+                        </div>
+                        :
+                        products
+                    }
                 </div>
             </div>
         </section>

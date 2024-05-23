@@ -1,38 +1,53 @@
 .category__wrapper {
-    margin: 8px 0;
-    .category__section {
+  margin: 8px 0;
+
+  .category__section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    button {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 4px;
+      border-radius: 6px;
+      
+    }
+
+    .category__section-price {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
       button {
+        padding: 8px 10px;
         display: flex;
         align-items: center;
-        gap: 4px;
-        border-radius: 6px;
-      }
-      .category__section-price {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        button {
-          padding: 6px 8px;
-          svg {
-            color: gold;
-          }
+        grid-gap: 4px;
+        background-color: #f0f4f7;
+        text-decoration: none;
+        height: 32px;
+
+        svg {
+          color: gold;
         }
       }
-      .category__section-adress {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        button {
-          padding: 6px 8px;
-          background-color: #fff;
-          border: 1px solid #bbb8b8;
-          &:last-child {
-            background-color: aliceblue;
-          }
+    }
+
+    .category__section-adress {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      button {
+        padding: 6px 8px;
+        background-color: #fff;
+        border: 1px solid #bbb8b8;
+
+        &:last-child {
+          background-color: aliceblue;
         }
       }
     }
   }
+}

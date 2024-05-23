@@ -1,6 +1,7 @@
 import React from "react";
 import { TiFlash } from "react-icons/ti";
 import { ImLocation } from "react-icons/im";
+import { FaFire } from "react-icons/fa6";
 
 const Category = () => {
   return (
@@ -10,7 +11,7 @@ const Category = () => {
           <div className="category__section-price">
             <button>
               <p>Flash Deals</p>
-              <TiFlash />
+              🔥
             </button>
             <button>One Price</button>
           </div>
