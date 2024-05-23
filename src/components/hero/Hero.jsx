@@ -11,10 +11,12 @@ const Hero = () => {
                 <div className="hero__title">
                     <h1>ONE PRICE</h1>
                     <p>For orders from 3 to 10 items</p>
+                    <div>
                     <button>
                         buy
                         <MdOutlineKeyboardArrowRight/>
                     </button>
+                    </div>
                 </div>
             </div>
         </div>
