@@ -4,9 +4,11 @@ import useStore from '../../context/store'
 // Images
 import { BsTrash3 } from 'react-icons/bs'
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md'
+import { FaMinus, FaPlus } from 'react-icons/fa6'
 
 const CartContent = () => {
     let cart = useStore(state => state.cartList)
+
     let cartItem = cart?.map(el => (
         <div key={el.id} className="cart__list-item">
             <div className="cart__list-item__img">
@@ -17,9 +19,9 @@ const CartContent = () => {
                 <p title={el.description}>{el.description}</p>
             </div>
             <div className="cart__list-item__quantity">
-                <button>-</button>
-                <span>0</span>
-                <button>+</button>
+                <button><FaMinus /></button>
+                <span>{el.quantity}</span>
+                <button><FaPlus /></button>
             </div>
             <div className="cart__list-item__prices">
                 <del>{(el.price * 1.4).brm()}$</del>
@@ -27,6 +29,10 @@ const CartContent = () => {
             </div>
             <button className="cart__list-item__delete"><BsTrash3 /></button>
         </div>
+    ))
+
+    let checkoutProducts = cart?.map(el => (
+        <article key={el.id}><img src={el.images[0]} alt="" /></article>
     ))
 
     return (
@@ -46,12 +52,11 @@ const CartContent = () => {
                         <h2>Place an order</h2>
                         <div className="cart__aside-box">
                             <div className="cart__aside-box__img">
-                                <img src="" alt="" />
-                                <img src="" alt="" />
+                                {checkoutProducts}
                             </div>
                             <ul>
                                 <li>
-                                    <p>2 items</p>
+                                    <p>{cart.length} items</p>
                                     <p>000$</p>
                                 </li>
                                 <li>
