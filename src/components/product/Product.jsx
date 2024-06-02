@@ -1,5 +1,7 @@
 import React from 'react'
-import useStore from '../../context/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { toggleWishlist } from '../../lib/action/action'
+import { addToCart } from '../../lib/action/action'
 
 // Images
 import { FaRegHeart, FaStar, FaHeart } from 'react-icons/fa6'
@@ -7,10 +9,8 @@ import { GrCart } from 'react-icons/gr'
 import { toast } from 'react-toastify'
 
 const Product = ({ data, loading }) => {
-    let handleHeart = useStore(state => state.toggleHeart)
-    let handleAddToCart = useStore(state => state.addToCart)
-
-    let wishlist = useStore(state => state.wish)
+    let wishlist = useSelector(state => state.wishlist)
+    const dispatch = useDispatch()
 
     let products = data?.map(el => (
         <div key={el.id} className="products__card">
@@ -22,7 +22,7 @@ const Product = ({ data, loading }) => {
             <div className='product-card__prices'>
                 <h3>${(el.price).brm()}</h3>
                 <article>
-                    <button onClick={() => handleHeart(el)}>
+                    <button onClick={() => dispatch(toggleWishlist(el))}>
                         {
                             wishlist?.some(item => item.id === el.id)
                                 ?
@@ -32,7 +32,7 @@ const Product = ({ data, loading }) => {
                         }
                     </button>
                     <button onClick={() => {
-                        handleAddToCart(el)
+                        dispatch(addToCart(el))
                         toast.success("Product has been added to cart")
                     }}><GrCart /></button>
                 </article>

@@ -1,10 +1,10 @@
 import React from 'react'
 import CartContent from '../../components/cartContent/CartContent'
-import useStore from '../../context/store'
 import Empty from '../../components/empty/Empty'
+import { useSelector } from 'react-redux'
 
 const Cart = () => {
-  let cart = useStore(state => state.cartList)
+  let cart = useSelector(state => state.cart)
 
   return (
     <div>

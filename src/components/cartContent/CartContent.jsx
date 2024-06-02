@@ -1,5 +1,6 @@
 import React from 'react'
-import useStore from '../../context/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { clearCart, removeFromCart, incCartQty, decCartQty } from '../../lib/action/action'
 
 // Images
 import { BsTrash3 } from 'react-icons/bs'
@@ -7,11 +8,8 @@ import { MdOutlineKeyboardArrowRight } from 'react-icons/md'
 import { FaMinus, FaPlus } from 'react-icons/fa6'
 
 const CartContent = () => {
-    let cart = useStore(state => state.cartList)
-    let removeFromCart = useStore(state => state.removeItemFromCart)
-    let incQuantity = useStore(state => state.incQuantity)
-    let decQuantity = useStore(state => state.decQuantity)
-    let clearCart = useStore(state => state.clearCart)
+    let cart = useSelector(state => state.cart)
+    const dispatch = useDispatch()
 
     let cartItem = cart?.map(el => (
         <div key={el.id} className="cart__list-item">
@@ -23,15 +21,15 @@ const CartContent = () => {
                 <p title={el.description}>{el.description}</p>
             </div>
             <div className="cart__list-item__quantity">
-                <button disabled={el.quantity <= 1} onClick={() => decQuantity(el)}><FaMinus /></button>
+                <button disabled={el.quantity <= 1} onClick={() => dispatch(decCartQty(el))}><FaMinus /></button>
                 <span>{el.quantity}</span>
-                <button onClick={() => incQuantity(el)}><FaPlus /></button>
+                <button onClick={() => dispatch(incCartQty(el))}><FaPlus /></button>
             </div>
             <div className="cart__list-item__prices">
                 <del>{(el.price * 1.4).brm()}$</del>
                 <h3>{(el.price).brm()}$</h3>
             </div>
-            <button onClick={() => removeFromCart(el)} className="cart__list-item__delete"><BsTrash3 /></button>
+            <button onClick={() => dispatch(removeFromCart(el))} className="cart__list-item__delete"><BsTrash3 /></button>
         </div>
     ))
 
@@ -48,7 +46,7 @@ const CartContent = () => {
                     <section className='cart-section__content'>
                         <div className="cart__title">
                             <h1>Cart</h1>
-                            <button onClick={() => clearCart()}><BsTrash3 /></button>
+                            <button onClick={() => dispatch(clearCart())}><BsTrash3 /></button>
                         </div>
                         <div className="cart__list">
                             {cartItem}

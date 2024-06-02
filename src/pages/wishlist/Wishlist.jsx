@@ -1,10 +1,10 @@
 import React from 'react'
-import useStore from '../../context/store'
 import Product from '../../components/product/Product'
 import Empty from '../../components/empty/Empty'
+import { useSelector } from 'react-redux'
 
 const Wishlist = () => {
-  let wishlist = useStore(state => state.wish)
+  let wishlist = useSelector(state => state.wishlist)
 
   return (
     <div>
