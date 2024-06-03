@@ -6,7 +6,9 @@ import Charts from '../../components/charts/Charts'
 const Statistics = () => {
   return (
     <main className='stastics-page'>
-        <Charts/>
+      <div className="container">
+        <Charts />
+      </div>
     </main>
   )
 }
